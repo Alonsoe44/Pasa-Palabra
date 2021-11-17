@@ -11,7 +11,21 @@ html{
 body{
     background-color: #41539B;
     font-size: 1.6rem;
-    color: yellow;
+    color: rgb(255, 253, 132);
+}
+#noScroll{
+    width: 100vw;
+    height: 100hw;
+    overflow: hidden;
+    position: absolute;
+}
+
+#theBigText{
+    font-size: 30rem;
+    position: absolute;
+    z-index: 10;
+    line-height: 40rem;
+    left: -130rem;
 }
 #upperHalf{
     height: 100vh;
@@ -43,30 +57,30 @@ body{
     height: 5rem;
     z-index: -10;
     position: absolute;
-    right: 15rem;
+    right: 60rem;
     bottom: 20%
 }
 #dollarBase{
-    width: 12rem;
+    width: 50rem;
     height: auto;
     position: absolute;
     z-index: -5;
 }
 #dollarSign{
     color: #301c1f;
-    padding-left: 15%;
-    padding-top: 9%;
+    padding-left: 5rem;
+    padding-top: 3rem;
     z-index: 5;
     position: absolute;
-    font-size: 2.4rem;
+    font-size: 12rem;
 }
 #scoreNum{
     color: #301c1f;
-    padding-left: 29%;
-    padding-top: 9%;
+    padding-left: 12rem;
+    padding-top: 3rem;
     z-index: 5;
     position: absolute;
-    font-size: 2.4rem;
+    font-size: 12rem;
 }
 
 

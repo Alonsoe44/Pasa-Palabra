@@ -13,6 +13,8 @@
     <script src = 'pasapalabra.js' defer></script>
 </head>
 <body>
+    <div id = 'noScroll'>
+    <div id ='theBigText'>PASA<br>PALABRA</div>
     <div id = 'upperHalf'>
         <div id='WheelText'>
             <img id = 'mainWheel'src="FortuneWheel.png" alt="Wheel of fortune">
@@ -31,11 +33,15 @@
             <input type='text' id ='InputBox' autocomplete="off" autocorrect="off">
         </div>
     </div>
-    <audio id = 'dingAudio' autoplay='autoplay'>
+    <audio id = 'dingAudio'  >
         <source src="cleanAnswer.mp3" type="audio/mp3">
     </audio>
     <audio id = 'endGameSound' autoplay='autoplay'>
         <source src="endGameSound.mp3" type="audio/mp3">
     </audio>
+    <audio id = 'wrongAns'>
+        <source src="dinding.mp3" type="audio/mp3">
+    </audio>
+    </div>
 </body>
 </html>

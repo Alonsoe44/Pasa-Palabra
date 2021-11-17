@@ -64,6 +64,7 @@ let Questions = [{ letter: "a", answer: "abducir", status: 'waiting', question: 
     let indexAnswer = 0;
     let prepareTime = false;
     let lastQuestionIndex = Questions.length;
+    let scoreAnimation = correctAnswers*1000;
     //Functions
     function prepareRandomQuestions(){
         for(let i = 0;i<Questions.length;i++){
@@ -74,6 +75,7 @@ let Questions = [{ letter: "a", answer: "abducir", status: 'waiting', question: 
         }
     } 
     function refreshProtocol() {
+        
         lastQuestionIndex = Questions.length;
         if(indexQuestion===lastQuestionIndex){
             wheelText.innerHTML = 'NewRound <br> Press enter to continue';
@@ -88,22 +90,33 @@ let Questions = [{ letter: "a", answer: "abducir", status: 'waiting', question: 
         wheelText.innerHTML = Questions[i].question;
     }
     function reviewLastAnswer(i){
-        //let userAnswer = window.prompt(Questions[indexQuestion].question).toLowerCase(); old code
+        
         spinTheWheel.play();
+        
         let userAnswer = userInputBox.value.toLowerCase();
         console.log(userAnswer);
         userInputBox.value = '';
         if(userAnswer===Questions[i].answer){
+            document.querySelector('#theBigText').innerHTML = 'GREAT';
+            document.querySelector('#theBigText').style.color = 'yellow';
+            quickMessage.play();
             Questions[i].status = 'correct';
             correctAnswers++;
             correctAnswerSFX.play();
             console.log('Correct');
-            animateNumbers(correctAnswers*1000);
+            scoreAnimation += 1000;
+            animateNumbers(scoreAnimation);
         }else  if(userAnswer==='pasapalabra'){
             console.log('next');
         } else if(userAnswer==='end'){
             end = true;
         }else {
+            ahhh.play();
+            document.querySelector('#theBigText').innerHTML = 'AHHHH';
+            document.querySelector('#theBigText').style.color = '#B31336';
+            quickMessage.play();
+            scoreAnimation -= 500;
+            animateNumbersBad(scoreAnimation);
             Questions[i].status = 'incorrect';
             console.log(`La respuesta correcta era: ${Questions[i].answer}`);
         }
@@ -132,11 +145,23 @@ let Questions = [{ letter: "a", answer: "abducir", status: 'waiting', question: 
         } 
     }
     function animateNumbers(newScore){
-        let theCaller = setInterval(incrementNum, 10);
+        let theCaller = setInterval(incrementNum, 20);
         let count = parseInt(scoreDollar.innerHTML);
         
         function incrementNum(){
             count += 20;
+            scoreDollar.innerHTML = count;
+            if(count===newScore){
+                clearInterval(theCaller);
+            }
+        }
+    }
+    function animateNumbersBad(newScore){
+        let theCaller = setInterval(incrementNum, 50);
+        let count = parseInt(scoreDollar.innerHTML);
+        
+        function incrementNum(){
+            count -= 20;
             scoreDollar.innerHTML = count;
             if(count===newScore){
                 clearInterval(theCaller);
@@ -155,6 +180,7 @@ let Questions = [{ letter: "a", answer: "abducir", status: 'waiting', question: 
 //animations
 const correctAnswerSFX = document.getElementById('dingAudio');
 const endGameSFX = document.getElementById('endGameSound');
+const ahhh = document.getElementById('wrongAns');
 let delayWheel = 100;
 let durationAnimation = 2000;
 let spinTheWheel;
@@ -177,7 +203,7 @@ function findScreenSize(){
                 { value: '1turn', duration: durationAnimation, delay: delayWheel }
             ],
             scale: [
-                { value: 11, duration: durationAnimation, delay: delayWheel }
+                { value: 14, duration: durationAnimation, delay: delayWheel }
             ],
         });
     } else {
@@ -199,6 +225,27 @@ function findScreenSize(){
         });
     }
 }
+//BIG text animation
+
+let bigBanner = anime({
+    targets: '#theBigText',
+    translateX: [
+        { value: 2200, duration: durationAnimation, delay: delayWheel},
+        { value: 2200*2, duration: 5000, delay: delayWheel}
+    ],
+    //autoplay: false
+})
+
+let quickMessage = anime({
+    targets: '#theBigText',
+    translateX: [
+        { value: 3600, duration: 1000},
+        
+    ],
+    easing: 'linear',
+    autoplay: false
+})
+
 
 
 
