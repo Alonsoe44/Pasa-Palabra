@@ -21,7 +21,7 @@ body{
 }
 
 #theBigText{
-    font-size: 30rem;
+    font-size: 20rem;
     position: absolute;
     z-index: 10;
     line-height: 40rem;
@@ -58,7 +58,7 @@ body{
     z-index: -10;
     position: absolute;
     right: 60rem;
-    bottom: 20%
+    bottom: 50rem;
 }
 #dollarBase{
     width: 50rem;
