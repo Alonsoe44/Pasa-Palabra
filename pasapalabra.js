@@ -230,7 +230,7 @@ function findScreenSize(){
 let bigBanner = anime({
     targets: '#theBigText',
     translateX: [
-        { value: 2200, duration: durationAnimation, delay: delayWheel},
+        { value: 1800, duration: durationAnimation, delay: delayWheel},
         { value: 2200*2, duration: 5000, delay: delayWheel}
     ],
     //autoplay: false
