@@ -203,7 +203,7 @@ function findScreenSize(){
                 { value: '1turn', duration: durationAnimation, delay: delayWheel }
             ],
             scale: [
-                { value: 14, duration: durationAnimation, delay: delayWheel }
+                { value: 11, duration: durationAnimation, delay: delayWheel }
             ],
         });
     } else {
