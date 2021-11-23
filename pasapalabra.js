@@ -62,9 +62,26 @@ let Questions = [{ letter: "a", answer: "abducir", status: 'waiting', question: 
     let correctAnswers = 0;
     let indexQuestion = 1;
     let indexAnswer = 0;
+    let ranking = false;
     let prepareTime = false;
+    let timeUP = false;
     let lastQuestionIndex = Questions.length;
     let scoreAnimation = correctAnswers*1000;
+    let playersScore = [
+        {
+            name: 'Calamardo',
+            score: 473829
+        },{
+            name: 'Bob Esponja',
+            score: 43452
+        },{
+            name: 'Don Cangrejo',
+            score: 32452
+        },{
+            name: 'user',
+            score: 4389
+        }
+    ];
     //Functions
     function prepareRandomQuestions(){
         for(let i = 0;i<Questions.length;i++){
@@ -134,6 +151,12 @@ let Questions = [{ letter: "a", answer: "abducir", status: 'waiting', question: 
         if(Questions.length===0){
             GoodByePrintStats();
             end = true;
+                ranking = true;
+                
+                playersScore[3].name = userInputBox.value;
+                console.log(playersScore[3].name);
+                userInputBox.value = '';
+                console.table(playersScore);
         }
     }    
     function cleanWrongAnswers(){
@@ -169,11 +192,19 @@ let Questions = [{ letter: "a", answer: "abducir", status: 'waiting', question: 
         }
     }
     function GoodByePrintStats(){
+        clearInterval(theInterval);
         endGameSFX.play();
-        wheelText.innerHTML = 'It\'s game Overr <br><br> Acertaste '+correctAnswers+' preguntas <br> Fallaste '+(QuestionBank.length - correctAnswers)+' preguntas <br> Gracias por jugar';
+        wheelText.innerHTML = 'It\'s game Overr <br><br> Acertaste '+correctAnswers+' preguntas <br> Fallaste '+(QuestionBank.length - correctAnswers)+' preguntas <br> Cual es tu nombre?';
         console.log(`Acertaste ${correctAnswers} preguntas`);
         console.log(`Fallaste ${QuestionBank.length - correctAnswers} preguntas`);
-        console.log('Gracias por jugar');
+        console.log('Cual es tu nombre?');
+        
+    }
+
+    function printRanking(){
+        endGameSFX.play();
+        wheelText.innerHTML = 'Player     Score <br><br> Bob    89084 <br> Calamardo   437892 <br> '+ playersScore[3].name + '   ' + scoreDollar.innerHTML;
+        
     }
     
 
@@ -260,16 +291,64 @@ document.addEventListener('keydown', function(event){
             if(!prepareTime){
                 refreshProtocol();
             } else if(end){
-                console.log('it\'s over');
-            }else {
+                if(timeUP){
+                    wheelText.innerHTML = 'TIME UP :(';
+                }else{
+                if(userInputBox!==''){
+                    playersScore[3].name = userInputBox.value;
+                } 
+                end = false;
+                ranking = true;
+                userInputBox.value = '';
+                printRanking();
+                console.table(playersScore);
+                console.table('TIMEEE UPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP');
+            }
+            }else if(ranking){
+                ranking = true;
+                userInputBox.value = '';
+                printRanking();
+                
+                
+            } else{
                 prepareTime = false;
                 userInputBox.value = '';
                 console.table(Questions);
                 printQuestion(0);
+               
             }
             break;
     }
 });
+
+//This is the clock
+const theClockBox = document.querySelector('#timer');
+let StartTime = Date.now();
+let minutes = 1;
+let startClock = ()=>{
+    let sec = 60 - parseInt((Date.now()-StartTime)/1000);
+    if( sec === 59){
+        minutes -= 1;
+    }
+    if(sec === 0){
+        sec = 0;
+        StartTime += 60000;
+    }
+    theClockBox.innerHTML = `${minutes}:0${sec}`;
+    if(sec>=10){
+        theClockBox.innerHTML = `${minutes}:${sec}`;
+    }
+    if(minutes==0 && sec==0){
+        console.log('gameOver');
+        clearInterval(theInterval);
+        end = true;
+        prepareTime = true;
+        timeUP = true;
+        console.log(`this is end ${end}`);
+    }
+}
+
+let theInterval = setInterval(startClock , 1000);
 
     
     
