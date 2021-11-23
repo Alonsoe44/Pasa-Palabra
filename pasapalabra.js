@@ -270,7 +270,7 @@ let bigBanner = anime({
 let quickMessage = anime({
     targets: '#theBigText',
     translateX: [
-        { value: 3600, duration: 1000},
+        { value: 3600, duration: 1700},
         
     ],
     easing: 'linear',
@@ -324,7 +324,7 @@ document.addEventListener('keydown', function(event){
 //This is the clock
 const theClockBox = document.querySelector('#timer');
 let StartTime = Date.now();
-let minutes = 1;
+let minutes = 3;
 let startClock = ()=>{
     let sec = 60 - parseInt((Date.now()-StartTime)/1000);
     if( sec === 59){
